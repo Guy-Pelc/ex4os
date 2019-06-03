@@ -1,17 +1,33 @@
 #include "VirtualMemory.h"
 #include "PhysicalMemory.h"
 
-// #include <iostream>
+#include "MemoryConstants.h"
+
+//#include <iostream>
 #include <cmath>
 #include <algorithm>
 #include <cassert>
+#include <cstdio>
 using namespace std;
 
-#define DEBUG 1
+#define DEBUG 0
+
+void printPhysical(){
+	if (!DEBUG){return;}
+	word_t val;
+	printf("RAM_SIZE = %llu\n",(long long int)RAM_SIZE );
+	for (long long int i=0; i<RAM_SIZE; ++i){
+			PMread(i,&val);
+			printf("RAM[%llu]=%d\n",(long long int)i,val);
+			// cout<<"RAM["<<i<<"]="<<val<<endl;
+		}
+		printf("\n");
+	}
 
 void clearTable(uint64_t frameIndex) {
 //	cout<<"clearTable: "<<frameIndex<<endl;
     for (uint64_t i = 0; i < PAGE_SIZE; ++i) {
+//    	cout<<"i "<<i<<endl;
         PMwrite(frameIndex * PAGE_SIZE + i, 0);
     }
 }
@@ -164,6 +180,8 @@ word_t evictFrame(word_t pageToInsert,word_t protectedTable){
 
 	//unlink from table
 	PMwrite(ptrToRemove,0);
+
+	if (fToEvict<1) { assert(false);}
 	return fToEvict;
 }
 
@@ -277,7 +295,7 @@ int VMwrite(uint64_t virtualAddress, word_t value) {
 
 //		cout<<"..."<<value<<endl<<endl;
 
-		// printPhysical();
+		printPhysical();
 
     return 1;
 }

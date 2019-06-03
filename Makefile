@@ -33,4 +33,5 @@ tar:
 	$(TAR) $(TARFLAGS) $(TARNAME) $(TARSRCS)
 
 run:
-	$(CC) SimpleTest.cpp physicalMemory.cpp $(OSMLIB) && a.exe 
+	make
+	cls && $(CC) test.cpp physicalMemory.cpp $(OSMLIB) && a.exe 

@@ -12,10 +12,11 @@ void printPhysical(){
 	word_t val;
 	for (uint64_t i=0; i<RAM_SIZE; ++i){
 			PMread(i,&val);
-			// cout<<"RAM["<<i<<"]="<<val<<endl;}
-			// cout<<endl;
+			cout<<"RAM["<<i<<"]="<<val<<endl;
 		}
+		cout<<endl;
 	}
+	
 
 
 // old version for evict page
